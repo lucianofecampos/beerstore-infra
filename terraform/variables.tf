@@ -12,3 +12,5 @@ variable "availability_zones" {
     "us-east-1f",
   ]
 }
+
+variable "my_public_cidr" {}
