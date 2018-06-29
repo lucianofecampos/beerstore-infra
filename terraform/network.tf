@@ -6,14 +6,27 @@ resource "aws_vpc" "main" {
   }
 }
 
-resource "aws_subnet" "main_subnets" {
-  count = 6
+resource "aws_subnet" "public_subnet" {
+  count = 3
+
+  vpc_id                  = "${aws_vpc.main.id}"
+  cidr_block              = "${cidrsubnet(var.cidr_public, 2, count.index)}"
+  availability_zone       = "${var.availability_zones[count.index]}"
+  map_public_ip_on_launch = true
+
+  tags {
+    Name = "hibicode_public_subnet_${count.index}"
+  }
+}
+
+resource "aws_subnet" "private_subnet" {
+  count = 3
 
   vpc_id            = "${aws_vpc.main.id}"
-  cidr_block        = "${cidrsubnet(var.cidr_default, 8, count.index + 1)}"
+  cidr_block        = "${cidrsubnet(var.cidr_private, 2, count.index)}"
   availability_zone = "${var.availability_zones[count.index]}"
 
   tags {
-    Name = "hc_subnet_${count.index}"
+    Name = "hibicode_private_subnet_${count.index}"
   }
 }
