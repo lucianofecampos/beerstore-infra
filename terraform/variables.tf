@@ -30,3 +30,5 @@ variable "aws_linux_ami" {
 variable "instance_type" {
   default = "t2.micro"
 }
+
+variable "db_password" {}

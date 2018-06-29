@@ -42,7 +42,3 @@ Finalmente execute o plano de execução na AWS:
 ```
 $ terraform apply plano-execucao
 ```
-
-## Melhores práticas
-- Implementar melhores práticas para utilização do Terraform
-https://github.com/hashicorp/best-practices/blob/master/terraform/providers/aws/README.md
