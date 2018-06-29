@@ -21,3 +21,18 @@ resource "aws_instance" "instances" {
     Name = "hibicode_instances"
   }
 }
+
+data "template_file" "hosts" {
+  template = "${file("./template/hosts.tpl")}"
+
+  vars {
+    PUBLIC_IP_0 = "${aws_instance.instances.*.public_ip[0]}"
+    PUBLIC_IP_1 = "${aws_instance.instances.*.public_ip[1]}"
+    PUBLIC_IP_2 = "${aws_instance.instances.*.public_ip[2]}"
+  }
+}
+
+resource "local_file" "hosts" {
+  content  = "${data.template_file.hosts.rendered}"
+  filename = "./template/hosts"
+}
