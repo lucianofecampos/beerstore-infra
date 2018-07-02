@@ -24,7 +24,7 @@ variable "availability_zones" {
 variable "my_public_cidr" {}
 
 variable "aws_linux_ami" {
-  default = "ami-b70554c8"
+  default = "ami-b70554c8" # Amazon Linux 2 AMI 2.0.20180622.1 x86_64 HVM 
 }
 
 variable "instance_type" {
