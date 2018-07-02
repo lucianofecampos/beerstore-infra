@@ -20,6 +20,8 @@ resource "aws_instance" "instances" {
   tags = {
     Name = "hibicode_instances"
   }
+
+  depends_on = ["aws_internet_gateway.igw"]
 }
 
 data "template_file" "hosts" {

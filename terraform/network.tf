@@ -30,3 +30,11 @@ resource "aws_subnet" "private_subnet" {
     Name = "hibicode_private_subnet_${count.index}"
   }
 }
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = "${aws_vpc.main.id}"
+
+  tags {
+    Name = "hibicode-igw"
+  }
+}
