@@ -19,7 +19,7 @@ $ aws configure
 Para fazermos login nas máquinas via ssh, precisamos usar uma chave assimétrica que você já pode ter ou se quiser, gerar uma com o comando abaixo:
 
 ```
-ssh-keygen -t rsa -b 4096 -o -a 100
+ssh-keygen -t rsa -b 4096 -o -a 100 -f keys/id_rsa
 ```
 
 ## Inicialização do Terraform

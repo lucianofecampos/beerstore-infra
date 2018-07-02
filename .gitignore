@@ -1,6 +1,6 @@
 .terraform
 
-**/keys/*
+**/keys/id_rsa*
 
 **/terraform.tfstate*
 terraform.tfstate
