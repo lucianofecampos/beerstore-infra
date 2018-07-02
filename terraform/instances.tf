@@ -13,7 +13,7 @@ resource "aws_instance" "instances" {
 
   subnet_id = "${element(aws_subnet.public_subnet.*.id, count.index)}"
 
-  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}", "${aws_security_group.allow_outbound.id}"]
 
   key_name = "${aws_key_pair.keypair.key_name}"
 
