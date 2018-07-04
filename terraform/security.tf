@@ -93,3 +93,61 @@ resource "aws_security_group" "cluster_communication" {
     Name = "allow_cluster_communication"
   }
 }
+
+resource "aws_security_group" "allow_load_balancer" {
+  vpc_id      = "${aws_vpc.main.id}"
+  name        = "hibicode_allow_load_balancer"
+  description = "Security Group that allows load balancer communication"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["${flatten(chunklist(aws_subnet.public_subnet.*.cidr_block, 1))}"]
+  }
+
+  tags {
+    Name = "allow_load_balancer"
+  }
+}
+
+resource "aws_security_group" "allow_portainer_access" {
+  vpc_id      = "${aws_vpc.main.id}"
+  name        = "hibicode_allow_portainer_access"
+  description = "Security Group that allows access to portainer"
+
+  ingress {
+    from_port   = 9000
+    to_port     = 9000
+    protocol    = "tcp"
+    cidr_blocks = ["${var.my_public_cidr}"]
+  }
+
+  tags {
+    Name = "allow_portainer"
+  }
+}
+
+resource "aws_security_group" "allow_app" {
+  vpc_id      = "${aws_vpc.main.id}"
+  name        = "hibicode_allow_app_access"
+  description = "Security Group that allows access to app"
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["${flatten(chunklist(aws_subnet.public_subnet.*.cidr_block, 1))}"]
+  }
+
+  tags {
+    Name = "allow_app"
+  }
+}

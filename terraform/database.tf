@@ -26,3 +26,7 @@ module "db" {
     Name = "hibicode_db"
   }
 }
+
+output "database" {
+  value = "${module.db.this_db_instance_endpoint}"
+}

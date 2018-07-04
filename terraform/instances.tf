@@ -13,7 +13,7 @@ resource "aws_instance" "instances" {
 
   subnet_id = "${element(aws_subnet.public_subnet.*.id, count.index)}"
 
-  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}", "${aws_security_group.allow_outbound.id}", "${aws_security_group.cluster_communication.id}"]
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}", "${aws_security_group.allow_outbound.id}", "${aws_security_group.cluster_communication.id}", "${aws_security_group.allow_portainer_access.id}", "${aws_security_group.allow_app.id}"]
 
   key_name = "${aws_key_pair.keypair.key_name}"
 
@@ -41,4 +41,8 @@ data "template_file" "hosts" {
 resource "local_file" "hosts" {
   content  = "${data.template_file.hosts.rendered}"
   filename = "./template/hosts"
+}
+
+output "instances" {
+  value = "${aws_instance.instances.*.public_ip}"
 }
