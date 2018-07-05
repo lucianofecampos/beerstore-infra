@@ -31,7 +31,8 @@ resource "aws_lb_target_group" "alb_tg" {
 }
 
 resource "aws_lb_target_group_attachment" "alb_group_attachment" {
-  count            = "${length(aws_instance.instances.*.id)}"
+  # count            = "${length(aws_instance.instances.*.id)}"
+  count            = "3"
   target_group_arn = "${aws_lb_target_group.alb_tg.arn}"
   target_id        = "${element(aws_instance.instances.*.id, count.index)}"
   port             = "8080"
